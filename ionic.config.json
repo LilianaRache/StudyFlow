@@ -1,0 +1,7 @@
+{
+  "name": "studyflow",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

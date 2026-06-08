@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="bottom-nav">
+  <a routerLink="/dashboard">Inicio</a>
+  <a routerLink="/materias">Materias</a>
+  <a routerLink="/tareas">Tareas</a>
+  <a routerLink="/calendario">Calendario</a>
+  <a routerLink="/estadisticas">Stats</a>
+</div>
+
+<ion-content class="ion-padding">
+
+  <div class="study-card">
+    <h3>Usuario</h3>
+    <p class="muted">Estudiante StudyFlow</p>
+  </div>
+
+  <div class="study-card">
+    <h3>Recordatorios</h3>
+    <p class="muted">Notificaciones locales activadas</p>
+  </div>
+
+  <div class="study-card">
+    <h3>Datos locales</h3>
+    <p class="muted">La información se almacena en el dispositivo.</p>
+  </div>
+
+  <ion-button expand="block" color="danger" (click)="limpiarDatos()">
+    Limpiar datos
+  </ion-button>
+
+</ion-content>

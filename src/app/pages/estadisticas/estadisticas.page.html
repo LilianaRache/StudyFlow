@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Estadísticas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="bottom-nav">
+  <a routerLink="/dashboard">Inicio</a>
+  <a routerLink="/materias">Materias</a>
+  <a routerLink="/tareas">Tareas</a>
+  <a routerLink="/calendario">Calendario</a>
+  <a routerLink="/estadisticas">Stats</a>
+</div>
+
+<ion-content class="ion-padding">
+
+  <div class="study-card">
+    <h3>Tareas completadas</h3>
+    <ion-progress-bar [value]="progreso"></ion-progress-bar>
+    <p class="muted">{{ progreso * 100 | number:'1.0-0' }}% completado</p>
+  </div>
+
+  <div class="study-card">
+    <h3>Pendientes vs Completadas</h3>
+    <p>Total: {{ total }}</p>
+    <p>Completadas: {{ completadas }}</p>
+    <p>Pendientes: {{ pendientes }}</p>
+  </div>
+
+  <div class="study-card">
+    <h3>Prioridades</h3>
+    <p class="muted">Alta: {{ alta }} tareas</p>
+    <p class="muted">Media: {{ media }} tareas</p>
+    <p class="muted">Baja: {{ baja }} tareas</p>
+  </div>
+
+</ion-content>

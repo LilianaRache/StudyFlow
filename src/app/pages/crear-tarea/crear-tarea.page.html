@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Tarea</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="bottom-nav">
+  <a routerLink="/dashboard">Inicio</a>
+  <a routerLink="/materias">Materias</a>
+  <a routerLink="/tareas">Tareas</a>
+  <a routerLink="/calendario">Calendario</a>
+  <a routerLink="/estadisticas">Stats</a>
+</div>
+
+<ion-content class="ion-padding">
+
+  <input
+    class="study-input"
+    [(ngModel)]="tarea.titulo"
+    placeholder="Título de la tarea"
+  />
+
+  <select class="study-input" [(ngModel)]="tarea.materia">
+    <option value="">Seleccionar materia</option>
+    <option *ngFor="let materia of materias" [value]="materia.nombre">
+      {{ materia.nombre }}
+    </option>
+  </select>
+
+  <input
+    class="study-input"
+    type="date"
+    [(ngModel)]="tarea.fecha"
+  />
+
+  <select class="study-input" [(ngModel)]="tarea.prioridad">
+    <option value="">Seleccionar prioridad</option>
+    <option value="Alta">Alta</option>
+    <option value="Media">Media</option>
+    <option value="Baja">Baja</option>
+  </select>
+
+  <textarea
+    class="study-input"
+    [(ngModel)]="tarea.descripcion"
+    placeholder="Descripción"
+  ></textarea>
+
+  <ion-button expand="block" (click)="guardarTarea()">
+    Guardar Tarea
+  </ion-button>
+
+</ion-content>

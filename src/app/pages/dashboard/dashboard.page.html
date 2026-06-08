@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>StudyFlow</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="bottom-nav">
+  <a routerLink="/dashboard">Inicio</a>
+  <a routerLink="/materias">Materias</a>
+  <a routerLink="/tareas">Tareas</a>
+  <a routerLink="/calendario">Calendario</a>
+  <a routerLink="/estadisticas">Stats</a>
+</div>
+
+<ion-content class="ion-padding">
+
+  <h2 class="section-title">Panel Principal</h2>
+
+  <div class="study-card">
+    <h3>Próximas Tareas</h3>
+
+    <p class="muted" *ngIf="proximas.length === 0">
+      No hay próximas tareas.
+    </p>
+
+    <ul>
+      <li *ngFor="let tarea of proximas">
+        {{ tarea.titulo }} - {{ tarea.fecha }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="study-card">
+    <h3>Entregas Pendientes</h3>
+    <h1>{{ pendientes.length }}</h1>
+    <p class="muted">Tareas pendientes por completar</p>
+  </div>
+
+  <div class="study-card">
+    <h3>Progreso académico</h3>
+    <ion-progress-bar [value]="progreso"></ion-progress-bar>
+    <p class="muted">{{ progreso * 100 | number:'1.0-0' }}% completado</p>
+  </div>
+
+  <ion-button class="bottom-safe" expand="block" size="large" routerLink="/crear-tarea">
+    Añadir Tarea Rápida
+  </ion-button>
+
+</ion-content>

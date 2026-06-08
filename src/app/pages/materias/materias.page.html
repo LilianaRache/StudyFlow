@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mis Materias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="bottom-nav">
+  <a routerLink="/dashboard">Inicio</a>
+  <a routerLink="/materias">Materias</a>
+  <a routerLink="/tareas">Tareas</a>
+  <a routerLink="/calendario">Calendario</a>
+  <a routerLink="/estadisticas">Stats</a>
+</div>
+
+<ion-content class="ion-padding">
+
+  <input
+    class="study-input"
+    [(ngModel)]="nuevaMateria"
+    placeholder="Ej: Matemáticas"
+  />
+
+<ion-button expand="block" (click)="agregarMateria()">
+  {{ editandoIndex !== null ? 'Guardar Cambios' : '+ Añadir Materia' }}
+</ion-button>
+
+<div class="study-card" *ngFor="let materia of materias; let i = index">
+  <h3>{{ materia.nombre }}</h3>
+  <p class="muted">{{ materia.tareas }} Tareas</p>
+
+  <ion-button size="small" fill="outline" (click)="editarMateria(i)">
+    Editar
+  </ion-button>
+
+  <ion-button size="small" color="danger" fill="outline" (click)="eliminarMateria(i)">
+    Eliminar
+  </ion-button>
+</div>
+
+</ion-content>

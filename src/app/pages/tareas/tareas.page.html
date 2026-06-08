@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="bottom-nav">
+  <a routerLink="/dashboard">Inicio</a>
+  <a routerLink="/materias">Materias</a>
+  <a routerLink="/tareas">Tareas</a>
+  <a routerLink="/calendario">Calendario</a>
+  <a routerLink="/estadisticas">Stats</a>
+</div>
+
+<ion-content class="ion-padding">
+
+  <p class="muted" *ngIf="tareas.length === 0">
+    No hay tareas registradas.
+  </p>
+
+  <div class="study-card" *ngFor="let tarea of tareas; let i = index">
+    <h3>{{ tarea.completada ? '☑' : '☐' }} {{ tarea.titulo }}</h3>
+    <p class="muted">{{ tarea.materia }} - {{ tarea.prioridad }}</p>
+    <p class="muted">Fecha: {{ tarea.fecha }}</p>
+
+    <input
+      *ngIf="editandoIndex === i"
+      class="study-input"
+      [(ngModel)]="tituloEditado"
+    />
+
+    <ion-button expand="block" fill="outline" (click)="cambiarEstado(tarea)">
+      Cambiar estado
+    </ion-button>
+
+    <ion-button size="small" fill="outline" (click)="editarTarea(i)" *ngIf="editandoIndex !== i">
+      Editar
+    </ion-button>
+
+    <ion-button size="small" color="success" fill="outline" (click)="guardarEdicion(i)" *ngIf="editandoIndex === i">
+      Guardar
+    </ion-button>
+
+    <ion-button size="small" color="danger" fill="outline" (click)="eliminarTarea(i)">
+      Eliminar
+    </ion-button>
+  </div>
+
+</ion-content>
