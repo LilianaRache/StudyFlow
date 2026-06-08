@@ -7,12 +7,7 @@ import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, Ion
   standalone: true,
   imports: [
     IonApp,
-    IonRouterOutlet,
-    IonTabs,
-    IonTabBar,
-    IonTabButton,
-    IonIcon,
-    IonLabel
+    IonRouterOutlet
   ],
 })
 export class AppComponent {
