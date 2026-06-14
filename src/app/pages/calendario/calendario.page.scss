@@ -1,14 +1,74 @@
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
+  gap: 8px;
   text-align: center;
-  margin-top: 16px;
 }
 
-.marked {
+.calendar-day {
+  padding: 10px 0;
+  border-radius: 50%;
+  background: #f1f1f1;
+  color: #222;
+}
+
+.calendar-day.has-task {
+  background: #4f6df5;
+  color: #fff;
+  font-weight: bold;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-header button {
+  border: none;
   background: #4f6df5;
   color: white;
-  border-radius: 50%;
-  padding: 6px;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.calendar-day.selected {
+  outline: 3px solid #222;
+}
+
+.calendar-task-card {
+  background: #f8f9ff;
+  border-radius: 14px;
+  padding: 12px;
+  margin-top: 12px;
+  border-left: 5px solid #4f6df5;
+}
+
+.calendar-task-card h4 {
+  color: #222;
+  margin: 0 0 6px;
+}
+
+.priority-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.Alta {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.Media {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.Baja {
+  background: #e8f5e9;
+  color: #2e7d32;
 }

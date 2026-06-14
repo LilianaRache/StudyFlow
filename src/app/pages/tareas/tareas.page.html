@@ -5,43 +5,83 @@
 </ion-header>
 
 <div class="bottom-nav">
-  <a routerLink="/dashboard">Inicio</a>
-  <a routerLink="/materias">Materias</a>
-  <a routerLink="/tareas">Tareas</a>
-  <a routerLink="/calendario">Calendario</a>
-  <a routerLink="/estadisticas">Stats</a>
+  <a routerLink="/dashboard" routerLinkActive="active">
+    <span>🏠</span>
+    Inicio
+  </a>
+
+  <a routerLink="/materias" routerLinkActive="active">
+    <span>📚</span>
+    Materias
+  </a>
+
+  <a routerLink="/tareas" routerLinkActive="active">
+    <span>✅</span>
+    Tareas
+  </a>
+
+  <a routerLink="/calendario" routerLinkActive="active">
+    <span>📅</span>
+    Calendario
+  </a>
+
+  <a routerLink="/configuracion" routerLinkActive="active">
+    <span>👤</span>
+    Perfil
+  </a>
 </div>
 
 <ion-content class="ion-padding">
 
-  <p class="muted" *ngIf="tareas.length === 0">
-    No hay tareas registradas.
+  <div class="filter-buttons">
+    <button [class.active]="filtro === 'todas'" (click)="cambiarFiltro('todas')">Todas</button>
+    <button [class.active]="filtro === 'pendientes'" (click)="cambiarFiltro('pendientes')">Pendientes</button>
+    <button [class.active]="filtro === 'completadas'" (click)="cambiarFiltro('completadas')">Completadas</button>
+  </div>
+
+  <p class="muted" *ngIf="tareasFiltradas.length === 0">
+    No hay tareas para este filtro.
   </p>
 
-  <div class="study-card" *ngFor="let tarea of tareas; let i = index">
+  <div class="study-card" *ngFor="let tarea of tareasFiltradas">
     <h3>{{ tarea.completada ? '☑' : '☐' }} {{ tarea.titulo }}</h3>
-    <p class="muted">{{ tarea.materia }} - {{ tarea.prioridad }}</p>
+    <p class="muted">{{ tarea.materia }}</p>
+    <span class="priority-badge" [ngClass]="tarea.prioridad">
+      {{ tarea.prioridad }}
+    </span>
     <p class="muted">Fecha: {{ tarea.fecha }}</p>
 
-    <input
-      *ngIf="editandoIndex === i"
-      class="study-input"
-      [(ngModel)]="tituloEditado"
-    />
+  <div *ngIf="editandoIndex === tareas.indexOf(tarea)">
+    <input class="study-input" [(ngModel)]="tareaEditada.titulo" />
+
+    <select class="study-input" [(ngModel)]="tareaEditada.materia">
+      <option *ngFor="let materia of materias" [value]="materia.nombre">
+        {{ materia.nombre }}
+      </option>
+    </select>
+
+    <input class="study-input" type="date" [(ngModel)]="tareaEditada.fecha" />
+
+    <div class="priority-selector">
+      <button type="button" [class.active]="tareaEditada.prioridad === 'Baja'" (click)="tareaEditada.prioridad = 'Baja'">Baja</button>
+      <button type="button" [class.active]="tareaEditada.prioridad === 'Media'" (click)="tareaEditada.prioridad = 'Media'">Media</button>
+      <button type="button" [class.active]="tareaEditada.prioridad === 'Alta'" (click)="tareaEditada.prioridad = 'Alta'">Alta</button>
+    </div>
+  </div>
 
     <ion-button expand="block" fill="outline" (click)="cambiarEstado(tarea)">
       Cambiar estado
     </ion-button>
 
-    <ion-button size="small" fill="outline" (click)="editarTarea(i)" *ngIf="editandoIndex !== i">
+    <ion-button size="small" fill="outline" (click)="editarTarea(tarea)">
       Editar
     </ion-button>
 
-    <ion-button size="small" color="success" fill="outline" (click)="guardarEdicion(i)" *ngIf="editandoIndex === i">
+    <ion-button size="small" color="success" fill="outline" (click)="guardarEdicion()">
       Guardar
     </ion-button>
 
-    <ion-button size="small" color="danger" fill="outline" (click)="eliminarTarea(i)">
+    <ion-button size="small" color="danger" fill="outline" (click)="eliminarTarea(tarea)">
       Eliminar
     </ion-button>
   </div>

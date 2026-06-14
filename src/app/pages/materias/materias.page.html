@@ -5,28 +5,56 @@
 </ion-header>
 
 <div class="bottom-nav">
-  <a routerLink="/dashboard">Inicio</a>
-  <a routerLink="/materias">Materias</a>
-  <a routerLink="/tareas">Tareas</a>
-  <a routerLink="/calendario">Calendario</a>
-  <a routerLink="/estadisticas">Stats</a>
+  <a routerLink="/dashboard" routerLinkActive="active">
+    <span>🏠</span>
+    Inicio
+  </a>
+
+  <a routerLink="/materias" routerLinkActive="active">
+    <span>📚</span>
+    Materias
+  </a>
+
+  <a routerLink="/tareas" routerLinkActive="active">
+    <span>✅</span>
+    Tareas
+  </a>
+
+  <a routerLink="/calendario" routerLinkActive="active">
+    <span>📅</span>
+    Calendario
+  </a>
+
+  <a routerLink="/configuracion" routerLinkActive="active">
+    <span>👤</span>
+    Perfil
+  </a>
 </div>
 
 <ion-content class="ion-padding">
 
-  <input
-    class="study-input"
-    [(ngModel)]="nuevaMateria"
-    placeholder="Ej: Matemáticas"
-  />
+<input
+  class="study-input"
+  [class.input-error]="errorMateria"
+  [(ngModel)]="nuevaMateria"
+  placeholder="Ej: Matemáticas"
+/>
 
-<ion-button expand="block" (click)="agregarMateria()">
-  {{ editandoIndex !== null ? 'Guardar Cambios' : '+ Añadir Materia' }}
-</ion-button>
+<p class="error-text" *ngIf="errorMateria">
+  Debes ingresar el nombre de la materia.
+</p>
+
+<div class="materias-header">
+  <h2>Mis Materias</h2>
+
+<button class="add-circle" (click)="agregarMateria()">
+  {{ editandoIndex !== null ? '✓' : '+' }}
+</button>
+</div>
 
 <div class="study-card" *ngFor="let materia of materias; let i = index">
   <h3>{{ materia.nombre }}</h3>
-  <p class="muted">{{ materia.tareas }} Tareas</p>
+  <p class="muted">{{ contarTareasMateria(materia.nombre) }} tareas asociadas</p>
 
   <ion-button size="small" fill="outline" (click)="editarMateria(i)">
     Editar

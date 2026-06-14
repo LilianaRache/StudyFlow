@@ -5,40 +5,83 @@
 </ion-header>
 
 <div class="bottom-nav">
-  <a routerLink="/dashboard">Inicio</a>
-  <a routerLink="/materias">Materias</a>
-  <a routerLink="/tareas">Tareas</a>
-  <a routerLink="/calendario">Calendario</a>
-  <a routerLink="/estadisticas">Stats</a>
+  <a routerLink="/dashboard" routerLinkActive="active">
+    <span>🏠</span>
+    Inicio
+  </a>
+
+  <a routerLink="/materias" routerLinkActive="active">
+    <span>📚</span>
+    Materias
+  </a>
+
+  <a routerLink="/tareas" routerLinkActive="active">
+    <span>✅</span>
+    Tareas
+  </a>
+
+  <a routerLink="/calendario" routerLinkActive="active">
+    <span>📅</span>
+    Calendario
+  </a>
+
+  <a routerLink="/configuracion" routerLinkActive="active">
+    <span>👤</span>
+    Perfil
+  </a>
 </div>
 
 <ion-content class="ion-padding">
 
-  <input
-    class="study-input"
-    [(ngModel)]="tarea.titulo"
-    placeholder="Título de la tarea"
-  />
+<input
+  class="study-input"
+  [class.input-error]="errorTitulo"
+  [(ngModel)]="tarea.titulo"
+  placeholder="Título de la tarea"
+/>
+<p class="error-text" *ngIf="errorTitulo">Ingresa el título de la tarea.</p>
 
-  <select class="study-input" [(ngModel)]="tarea.materia">
-    <option value="">Seleccionar materia</option>
+  <select class="study-input" [class.input-error]="errorMateria" [(ngModel)]="tarea.materia">
     <option *ngFor="let materia of materias" [value]="materia.nombre">
       {{ materia.nombre }}
     </option>
   </select>
+<p class="error-text" *ngIf="errorMateria">Selecciona una materia.</p>
 
-  <input
-    class="study-input"
-    type="date"
-    [(ngModel)]="tarea.fecha"
-  />
+<input
+  class="study-input"
+  [class.input-error]="errorFecha"
+  type="date"
+  [(ngModel)]="tarea.fecha"
+/>
+<p class="error-text" *ngIf="errorFecha">Selecciona una fecha de entrega.</p>
 
-  <select class="study-input" [(ngModel)]="tarea.prioridad">
-    <option value="">Seleccionar prioridad</option>
-    <option value="Alta">Alta</option>
-    <option value="Media">Media</option>
-    <option value="Baja">Baja</option>
-  </select>
+<label class="form-label">Prioridad</label>
+
+  <div class="priority-selector">
+    <button
+      type="button"
+      [class.active]="tarea.prioridad === 'Baja'"
+      (click)="tarea.prioridad = 'Baja'">
+      Baja
+    </button>
+
+    <button
+      type="button"
+      [class.active]="tarea.prioridad === 'Media'"
+      (click)="tarea.prioridad = 'Media'">
+      Media
+    </button>
+
+    <button
+      type="button"
+      [class.active]="tarea.prioridad === 'Alta'"
+      (click)="tarea.prioridad = 'Alta'">
+      Alta
+    </button>
+  </div>
+
+  <p class="error-text" *ngIf="errorPrioridad">Selecciona una prioridad.</p>
 
   <textarea
     class="study-input"

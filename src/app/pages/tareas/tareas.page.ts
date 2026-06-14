@@ -3,20 +3,23 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/angular/standalone';
 import { StorageService } from '../../services/storage';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-tareas',
   templateUrl: './tareas.page.html',
   styleUrls: ['./tareas.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, RouterLink]
+  imports: [CommonModule, FormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, RouterLink, RouterLinkActive]
 })
 export class TareasPage implements OnInit {
 
   tareas: any[] = [];
+  filtro = 'todas';
   editandoIndex: number | null = null;
   tituloEditado = '';
+  materias: any[] = [];
+  tareaEditada: any = null;
 
   constructor(private storageService: StorageService) {}
 
@@ -30,6 +33,23 @@ export class TareasPage implements OnInit {
 
   cargarTareas() {
     this.tareas = this.storageService.getTareas();
+    this.materias = this.storageService.getMaterias();
+  }
+
+  get tareasFiltradas() {
+    if (this.filtro === 'pendientes') {
+      return this.tareas.filter(t => !t.completada);
+    }
+
+    if (this.filtro === 'completadas') {
+      return this.tareas.filter(t => t.completada);
+    }
+
+    return this.tareas;
+  }
+
+  cambiarFiltro(valor: string) {
+    this.filtro = valor;
   }
 
   cambiarEstado(tarea: any) {
@@ -37,23 +57,24 @@ export class TareasPage implements OnInit {
     this.storageService.saveTareas(this.tareas);
   }
 
-  editarTarea(index: number) {
-    this.editandoIndex = index;
-    this.tituloEditado = this.tareas[index].titulo;
+  editarTarea(tarea: any) {
+    this.editandoIndex = this.tareas.indexOf(tarea);
+    this.tareaEditada = { ...tarea };
   }
 
-  guardarEdicion(index: number) {
-    if (!this.tituloEditado.trim()) return;
+  guardarEdicion() {
+    if (this.editandoIndex === null || !this.tareaEditada.titulo.trim()) return;
 
-    this.tareas[index].titulo = this.tituloEditado;
+    this.tareas[this.editandoIndex] = this.tareaEditada;
     this.storageService.saveTareas(this.tareas);
 
     this.editandoIndex = null;
-    this.tituloEditado = '';
+    this.tareaEditada = null;
   }
 
-  eliminarTarea(index: number) {
+  eliminarTarea(tarea: any) {
     if (confirm('¿Eliminar esta tarea?')) {
+      const index = this.tareas.indexOf(tarea);
       this.tareas.splice(index, 1);
       this.storageService.saveTareas(this.tareas);
     }

@@ -5,11 +5,30 @@
 </ion-header>
 
 <div class="bottom-nav">
-  <a routerLink="/dashboard">Inicio</a>
-  <a routerLink="/materias">Materias</a>
-  <a routerLink="/tareas">Tareas</a>
-  <a routerLink="/calendario">Calendario</a>
-  <a routerLink="/estadisticas">Stats</a>
+  <a routerLink="/dashboard" routerLinkActive="active">
+    <span>🏠</span>
+    Inicio
+  </a>
+
+  <a routerLink="/materias" routerLinkActive="active">
+    <span>📚</span>
+    Materias
+  </a>
+
+  <a routerLink="/tareas" routerLinkActive="active">
+    <span>✅</span>
+    Tareas
+  </a>
+
+  <a routerLink="/calendario" routerLinkActive="active">
+    <span>📅</span>
+    Calendario
+  </a>
+
+  <a routerLink="/configuracion" routerLinkActive="active">
+    <span>👤</span>
+    Perfil
+  </a>
 </div>
 
 <ion-content class="ion-padding">
@@ -17,33 +36,41 @@
   <h2 class="section-title">Panel Principal</h2>
 
   <div class="study-card">
-    <h3>Próximas Tareas</h3>
+    <h3>📌 Próximas tareas</h3>
 
     <p class="muted" *ngIf="proximas.length === 0">
       No hay próximas tareas.
     </p>
 
-    <ul>
-      <li *ngFor="let tarea of proximas">
-        {{ tarea.titulo }} - {{ tarea.fecha }}
-      </li>
-    </ul>
+    <div *ngFor="let tarea of proximas" class="task-preview">
+      <strong>{{ tarea.titulo || tarea.nombre || 'Tarea sin título' }}</strong>
+      <p class="muted">📅 {{ tarea.fecha }}</p>
+
+      <span class="priority-badge" [ngClass]="tarea.prioridad">
+        {{ tarea.prioridad }}
+      </span>
+    </div>
   </div>
 
   <div class="study-card">
-    <h3>Entregas Pendientes</h3>
-    <h1>{{ pendientes.length }}</h1>
-    <p class="muted">Tareas pendientes por completar</p>
+    <h3>📋 Resumen académico</h3>
+    <p>Total de tareas: {{ tareas.length }}</p>
+    <p>Completadas: {{ tareas.length - pendientes.length }}</p>
+    <p>Pendientes: {{ pendientes.length }}</p>
   </div>
 
   <div class="study-card">
-    <h3>Progreso académico</h3>
+    <h3>📈 Progreso general</h3>
     <ion-progress-bar [value]="progreso"></ion-progress-bar>
     <p class="muted">{{ progreso * 100 | number:'1.0-0' }}% completado</p>
   </div>
 
-  <ion-button class="bottom-safe" expand="block" size="large" routerLink="/crear-tarea">
-    Añadir Tarea Rápida
+  <ion-button expand="block" size="large" routerLink="/crear-tarea">
+    ➕ Añadir Tarea Rápida
+  </ion-button>
+
+  <ion-button class="bottom-safe" expand="block" fill="outline" routerLink="/estadisticas">
+    📊 Ver estadísticas
   </ion-button>
 
 </ion-content>

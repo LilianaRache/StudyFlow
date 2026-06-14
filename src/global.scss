@@ -117,15 +117,49 @@ ion-title {
 
 .bottom-nav a {
   text-decoration: none;
-  color: #4f6df5;
-  font-size: 13px;
+  color: #777;
+  font-size: 11px;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.bottom-nav a span {
+  font-size: 20px;
+}
+
+.bottom-nav a.active,
+.bottom-nav a:hover {
+  color: #4f6df5;
 }
 
 ion-content {
-  --padding-bottom: 80px;
+  --padding-bottom: 130px;
 }
 
 .bottom-safe {
-  margin-bottom: 90px;
+  margin-bottom: 110px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filter-buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #4f6df5;
+  background: #fff;
+  color: #4f6df5;
+  font-weight: 600;
+}
+
+.filter-buttons button.active {
+  background: #4f6df5;
+  color: #fff;
 }

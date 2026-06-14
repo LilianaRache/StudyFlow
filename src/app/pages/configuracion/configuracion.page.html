@@ -5,28 +5,55 @@
 </ion-header>
 
 <div class="bottom-nav">
-  <a routerLink="/dashboard">Inicio</a>
-  <a routerLink="/materias">Materias</a>
-  <a routerLink="/tareas">Tareas</a>
-  <a routerLink="/calendario">Calendario</a>
-  <a routerLink="/estadisticas">Stats</a>
+  <a routerLink="/dashboard" routerLinkActive="active">
+    <span>🏠</span>
+    Inicio
+  </a>
+
+  <a routerLink="/materias" routerLinkActive="active">
+    <span>📚</span>
+    Materias
+  </a>
+
+  <a routerLink="/tareas" routerLinkActive="active">
+    <span>✅</span>
+    Tareas
+  </a>
+
+  <a routerLink="/calendario" routerLinkActive="active">
+    <span>📅</span>
+    Calendario
+  </a>
+
+  <a routerLink="/configuracion" routerLinkActive="active">
+    <span>👤</span>
+    Perfil
+  </a>
 </div>
 
 <ion-content class="ion-padding">
 
-  <div class="study-card">
-    <h3>Usuario</h3>
-    <p class="muted">Estudiante StudyFlow</p>
+  <div class="study-card profile-card">
+    <h2>👤 StudyFlow</h2>
+    <p class="muted">Perfil académico local</p>
   </div>
 
   <div class="study-card">
-    <h3>Recordatorios</h3>
-    <p class="muted">Notificaciones locales activadas</p>
+    <h3>📚 Resumen</h3>
+    <p>Materias registradas: {{ materias.length }}</p>
+    <p>Tareas registradas: {{ tareas.length }}</p>
+    <p>Tareas completadas: {{ completadas }}</p>
   </div>
 
   <div class="study-card">
-    <h3>Datos locales</h3>
-    <p class="muted">La información se almacena en el dispositivo.</p>
+    <h3>🔔 Recordatorios</h3>
+    <p class="muted">Notificaciones locales activadas.</p>
+  </div>
+
+  <div class="study-card">
+    <h3>📱 Aplicación</h3>
+    <p class="muted">Versión 1.0</p>
+    <p class="muted">Datos almacenados localmente.</p>
   </div>
 
   <ion-button expand="block" color="danger" (click)="limpiarDatos()">

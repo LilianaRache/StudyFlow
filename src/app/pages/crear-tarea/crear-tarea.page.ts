@@ -7,7 +7,8 @@ import {
   IonButton
 } from '@ionic/angular/standalone';
 import { StorageService } from '../../services/storage';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NotificationsService } from '../../services/notifications';
 
 @Component({
   selector: 'app-crear-tarea',
@@ -22,12 +23,17 @@ import { RouterLink } from '@angular/router';
     IonTitle,
     IonContent,
     IonButton,
-    RouterLink
+    RouterLink,
+    RouterLinkActive
   ]
 })
 export class CrearTareaPage implements OnInit {
 
   materias: any[] = [];
+  errorTitulo = false;
+  errorMateria = false;
+  errorFecha = false;
+  errorPrioridad = false;
 
   tarea = {
     titulo: '',
@@ -40,23 +46,31 @@ export class CrearTareaPage implements OnInit {
 
   constructor(
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private notificationsService: NotificationsService
   ) {}
 
   ngOnInit() {
     this.materias = this.storageService.getMaterias();
   }
 
-  guardarTarea() {
-    if (!this.tarea.titulo.trim()) {
-      alert('Ingrese el título de la tarea');
+  async guardarTarea() {
+    this.errorTitulo = !this.tarea.titulo.trim();
+    this.errorMateria = !this.tarea.materia;
+    this.errorFecha = !this.tarea.fecha;
+    this.errorPrioridad = !this.tarea.prioridad;
+
+    if (this.errorTitulo || this.errorMateria || this.errorFecha || this.errorPrioridad) {
       return;
     }
 
-    this.storageService.addTarea({
+    const nuevaTarea = {
       ...this.tarea,
-      id: Date.now()
-    });
+      id: Math.floor(Date.now() % 2147483647)
+    };
+
+    this.storageService.addTarea(nuevaTarea);
+    await this.notificationsService.programarRecordatorio(nuevaTarea);
 
     alert('Tarea guardada correctamente');
     this.router.navigate(['/tareas']);

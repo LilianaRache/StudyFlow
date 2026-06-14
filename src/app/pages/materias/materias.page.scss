@@ -1,0 +1,28 @@
+.materias-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.add-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: #4f6df5;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.input-error {
+  border: 2px solid #e53935;
+}
+
+.error-text {
+  color: #e53935;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}

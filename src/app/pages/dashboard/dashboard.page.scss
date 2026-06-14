@@ -1,0 +1,43 @@
+.task-preview {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.task-preview:last-child {
+  border-bottom: none;
+}
+
+.task-preview strong {
+  color: #222 !important;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.task-preview p {
+  color: #555 !important;
+}
+
+.priority-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.Alta {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.Media {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.Baja {
+  background: #e8f5e9;
+  color: #2e7d32;
+}

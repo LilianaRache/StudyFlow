@@ -5,11 +5,30 @@
 </ion-header>
 
 <div class="bottom-nav">
-  <a routerLink="/dashboard">Inicio</a>
-  <a routerLink="/materias">Materias</a>
-  <a routerLink="/tareas">Tareas</a>
-  <a routerLink="/calendario">Calendario</a>
-  <a routerLink="/estadisticas">Stats</a>
+  <a routerLink="/dashboard" routerLinkActive="active">
+    <span>🏠</span>
+    Inicio
+  </a>
+
+  <a routerLink="/materias" routerLinkActive="active">
+    <span>📚</span>
+    Materias
+  </a>
+
+  <a routerLink="/tareas" routerLinkActive="active">
+    <span>✅</span>
+    Tareas
+  </a>
+
+  <a routerLink="/calendario" routerLinkActive="active">
+    <span>📅</span>
+    Calendario
+  </a>
+
+  <a routerLink="/configuracion" routerLinkActive="active">
+    <span>👤</span>
+    Perfil
+  </a>
 </div>
 
 <ion-content class="ion-padding">
@@ -17,17 +36,54 @@
   <h2 class="section-title">Calendario Académico</h2>
 
   <div class="study-card">
-    <h3>Entregas registradas</h3>
+    <div class="calendar-header">
+      <button (click)="mesAnterior()">◀</button>
+      <h3>{{ nombreMes | titlecase }}</h3>
+      <button (click)="mesSiguiente()">▶</button>
+    </div>
 
-    <p class="muted" *ngIf="tareas.length === 0">
-      No hay tareas con fecha registrada.
+    <div class="calendar-grid">
+      <strong>L</strong>
+      <strong>M</strong>
+      <strong>M</strong>
+      <strong>J</strong>
+      <strong>V</strong>
+      <strong>S</strong>
+      <strong>D</strong>
+
+      <div
+        class="calendar-day"
+        *ngFor="let dia of diasCalendario"
+        [class.has-task]="dia.tareas.length > 0"
+        (click)="seleccionarDia(dia)"
+        [class.selected]="diaSeleccionado?.fecha === dia.fecha">
+        {{ dia.dia }}
+      </div>
+    </div>
+  </div>
+
+  <div class="study-card">
+    <h3>Actividades del día</h3>
+
+    <p class="muted" *ngIf="!diaSeleccionado">
+      Selecciona un día del calendario.
     </p>
 
-    <div *ngFor="let tarea of tareas">
-      <p>
-        <strong>{{ formatearFecha(tarea.fecha) }}:</strong>
-        {{ tarea.titulo }} - {{ tarea.materia }}
-      </p>
+    <p class="muted" *ngIf="diaSeleccionado && diaSeleccionado.tareas.length === 0">
+      No hay tareas para este día.
+    </p>
+
+    <div
+      class="calendar-task-card"
+      *ngFor="let tarea of diaSeleccionado?.tareas">
+
+      <h4>📌 {{ tarea.titulo }}</h4>
+      <p class="muted">📚 {{ tarea.materia }}</p>
+      <p class="muted">📅 {{ tarea.fecha }}</p>
+
+      <span class="priority-badge" [ngClass]="tarea.prioridad">
+        {{ tarea.prioridad }}
+      </span>
     </div>
   </div>
 
