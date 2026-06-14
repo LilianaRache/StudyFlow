@@ -43,7 +43,8 @@
     </p>
 
     <div *ngFor="let tarea of proximas" class="task-preview">
-      <strong>{{ tarea.titulo || tarea.nombre || 'Tarea sin título' }}</strong>
+      <strong>{{ tarea.titulo }}</strong>
+      <p class="muted">📚 {{ tarea.materia }}</p>
       <p class="muted">📅 {{ tarea.fecha }}</p>
 
       <span class="priority-badge" [ngClass]="tarea.prioridad">
